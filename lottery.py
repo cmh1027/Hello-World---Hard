@@ -59,6 +59,118 @@ class Main:
 					self.stocklist[k].append(100)
 					self.stocklist[k].append(100000-100*random.randrange(-150, 151))
 					break
+	"""
+	Adding Announcement
+	"""
+	# Adding Announcement (< 상황판 >)
+	def addannounce(self, string, root):
+		self.police_stars-=random.randrange(5, 25)
+		eat_ran=100*random.randrange(60, 150)
+		self.announce="하루 식비로 "+str(eat_ran)+"원이 나갔습니다.\n"
+		self.money-=eat_ran
+		event=random.randrange(100)
+		if self.date%7==0:
+			self.announce+="세금으로 30만원이 나갔습니다.\n"
+			self.money-=300000
+		if event==10:
+			lob_ran=10000*random.randrange(30, 1000)
+			self.announce+="강도에게 "+str(lob_ran)+"원을 빼앗겼습니다.\n"
+			self.money-=lob_ran
+		elif event==20:
+			lob_ran=100000*random.randrange(20, 300)
+			self.announce+="고소를 당해 "+str(lob_ran)+"원을 잃었습니다.\n"
+			self.money-=lob_ran
+		elif event==30:
+			lob_ran = 100000*random.randrange(5, 100)
+			self.announce+="사기를 당해 "+str(lob_ran)+"원을 잃었습니다.\n"
+			self.money-=lob_ran
+		elif event==40:
+			lob_ran = 100000*random.randrange(5, 100)
+			self.announce+="큰 병에 걸려 병원비로 \n"+str(lob_ran)+"원을 지출했습니다.\n"
+			self.money-=lob_ran
+		if self.money>0:
+			self.announce+=string
+			if self.police_stars >= 150:
+				self.announce+="잦은 사기로 현상수배범에 올랐습니다.\n"
+			if self.bank_debt>0:
+				self.announce+="현재 대출빚이 "+str(self.bank_debt)+"원입니다.\n이자로 "+str(int(self.bank_debt*0.05))+"원이 빠져나갑니다.\n"
+				self.money-=int(self.bank_debt*0.05)
+			if self.private_debt>0:
+				self.announce+="현재 사채빚이 "+str(self.private_debt)+"원입니다.\n이자로 "+str(int(self.private_debt*0.2))+"원이 빠져나갑니다.\n"
+				self.money-=int(self.private_debt*0.2)
+		for i in range(10):
+			fluct=100*random.randrange(-175, 151)
+			if len(self.stockfluct[i])==10:
+				self.stockfluct[i].pop(0)
+				self.stockfluct[i].append(fluct)
+			else:
+				self.stockfluct[i].append(fluct)
+			self.stocklist[i][2]+=fluct
+			for k in range(10):
+				if self.stocklist[i][0] in self.havestock[k]:
+					if fluct>=0:
+						self.announce+=self.havestock[k][0]+"("+str(self.havestock[k][1])+"주 보유)"+" ↑"+str(fluct)+"\n"
+					else:
+						self.announce+=self.havestock[k][0]+"("+str(self.havestock[k][1])+"주 보유)"+" ↓"+str(-1*fluct)+"\n"
+		for i in range(10):
+			if self.stocklist[i][2]<=0:
+				for k in range(10):
+					if self.stocklist[i][0] in self.havestock[k]:
+						self.announce+="보유주식 중 하나가 부도났습니다.\n"
+						self.announce+="부도난 회사 : " + self.havestock[k][0]+"\n"
+						self.havestock[k]=[]
+				self.stocklist[i]=[]
+				self.stockfluct[i]=[]
+				while True:
+					check=True
+					name=self.namelist[random.randrange(10)]+self.sortlist[random.randrange(10)]
+					for j in range(10):
+						if name in self.stocklist[j]:
+							check=False
+							break
+					if check:
+						self.stocklist[i].append(name)
+						self.stocklist[i].append(100)
+						self.stocklist[i].append(100000-100*random.randrange(-150, 151))
+		self.update()
+		total=0
+		for i in range(10):
+			if len(self.havestock[i])!=0:
+				total+=self.havestock[i][1]*self.stocklist[i][2]
+
+		if self.money<=0:
+			if self.money+total>0:
+				self.announce+="파산 위기에 주식을 모두 매각했습니다.\n"
+				self.money+=total
+				for i in range(10):
+					if len(self.havestock[i])!=0:
+						self.stocklist[i][1]+=self.havestock[i][1]
+						self.havestock[i]=[]
+				self.update()
+			else:
+				self.money=0
+				gg=Toplevel(root)
+				field_pic=PhotoImage(file="./images/gg.png")
+				field=Label(gg, image=field_pic)
+				field.place(x=0, y=0)
+				gg.title("게임 오버")
+				gg.geometry("280x186")
+				font = tk.font.Font(self.root, size=12)
+				msg = Label(gg, text="파산하셨습니다.\n오늘은 한강물이 차갑군요.")
+				msg['font']=font
+				msg.place(x=45, y=20)
+				def quit():
+					root.destroy()
+					root.quit()
+					self.root.destroy()
+					self.root.quit()
+				Button(gg,text = "확인", command = quit).place(x=120, y=150)	
+				gg.mainloop()
+		if self.money>0:
+			return True
+	"""
+	updating the main menu screen
+	"""
 
 
 """
