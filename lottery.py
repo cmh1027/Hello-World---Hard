@@ -921,7 +921,857 @@ class Main:
 			b45['font']=font	
 			lottoroot.mainloop()
 
-
+		"""
+		Matgo (맞고)
+		"""
+		# Matgo (맞고)
+		def matgo():
+			result=matgostart(self.root, self.money)
+			resultroot = Toplevel(self.root)
+			resultroot.title("결과")
+			resultroot.geometry("290x171")
+			field_pic=PhotoImage(file = "./images/hwato.png")
+			field=Label(resultroot, image=field_pic).place(x=0, y=0)
+			def quit():
+				self.date+=1
+				self.money+=int(result)
+				if int(result)>=0:
+					check = self.addannounce(str(result)+"원을 맞고로 얻었습니다.\n", resultroot)
+				else:
+					check = self.addannounce(str(result*(-1))+"원을 맞고로 잃었습니다.\n", resultroot)
+				if check:
+					self.update()
+					resultroot.destroy()
+					resultroot.quit()
+			if int(result)>=0:
+				Label(resultroot, text=str(result)+"원을 얻었습니다.").place(x=80, y=100)
+			else:
+				Label(resultroot, text=str(result*(-1))+"원을 잃었습니다.").place(x=80, y=100)
+			quitbutton=Button(resultroot,text = "확인", command = quit)
+			quitbutton.place(x=130, y=130)
+			resultroot.mainloop()
+		"""
+		Horse racing (경마)
+		"""
+		# Horse racing (경마)		
+		def horse():
+			self.choosehorse=[]
+			horse=[1,2,3,4,5,6,7,8]
+			winhorse=horse.pop(random.randrange(8))
+			sechorse=horse.pop(random.randrange(7))
+			horseloot = Toplevel(self.root)
+			horseloot.title("경마")
+			horseloot.geometry("400x234")
+			field_pic=PhotoImage(file = "./images/horse.png")
+			field=Label(horseloot, image=field_pic)
+			field.place(x=0, y=0)
+			font = tk.font.Font(root, size=15, weight='bold')
+			msg=Label(horseloot, text="1등, 2등 할 말을 예상하세요")
+			msg['font']=font
+			msg.place(x=70, y=3)
+			def choose1():
+				b1=Label(horseloot, text="★")
+				b1.place(x=8, y=40)
+				if 1 not in self.choosehorse:
+					self.choosehorse.append(1)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose2():
+				b2=Label(horseloot, text="★")
+				b2.place(x=108, y=40)
+				if 2 not in self.choosehorse:
+					self.choosehorse.append(2)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose3():
+				b3=Label(horseloot, text="★")
+				b3.place(x=208, y=40)
+				if 3 not in self.choosehorse:
+					self.choosehorse.append(3)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose4():
+				b4=Label(horseloot, text="★")
+				b4.place(x=308, y=40)
+				if 4 not in self.choosehorse:
+					self.choosehorse.append(4)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose5():
+				b5=Label(horseloot, text="★")
+				b5.place(x=8, y=130)
+				if 5 not in self.choosehorse:
+					self.choosehorse.append(5)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose6():
+				b6=Label(horseloot, text="★")
+				b6.place(x=108, y=130)
+				if 6 not in self.choosehorse:
+					self.choosehorse.append(6)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose7():
+				b7=Label(horseloot, text="★")
+				b7.place(x=208, y=130)
+				if 7 not in self.choosehorse:
+					self.choosehorse.append(7)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def choose8():
+				b8=Label(horseloot, text="★")
+				b8.place(x=308, y=130)
+				if 8 not in self.choosehorse:
+					self.choosehorse.append(8)
+				if len(self.choosehorse)==2:
+					determine(self.choosehorse)
+			def determine(choose):
+				self.date+=1
+				if choose[0]==winhorse and choose[1]==sechorse or choose[0]==sechorse and choose[1]==winhorse:
+					addmoney=500000*random.randrange(10, 250)
+					self.money+=addmoney
+					string="1등은 "+str(winhorse)+"번 말\n 2등은 "+str(sechorse)+"번 말이 차지했습니다. \n"+str(addmoney)+"원을 따냈습니다.\n"
+					check = self.addannounce(string, horseloot)
+					if check:
+						self.update()
+						horseloot.destroy()
+						horseloot.quit()
+				else:
+					self.money-=500000
+					string="1등은 "+str(winhorse)+"번 말\n 2등은 "+str(sechorse)+"번 말이 차지했습니다. \n500000원을 잃었습니다.\n"
+					check = self.addannounce(string, horseloot)
+					if check:
+						self.update()
+						horseloot.destroy()
+						horseloot.quit()				
+				
+			horse1=PhotoImage(file = "./images/horse1.png")
+			horse2=PhotoImage(file = "./images/horse2.png")
+			horse3=PhotoImage(file = "./images/horse3.png")
+			horse4=PhotoImage(file = "./images/horse4.png")
+			horse5=PhotoImage(file = "./images/horse5.png")
+			horse6=PhotoImage(file = "./images/horse6.png")
+			horse7=PhotoImage(file = "./images/horse7.png")
+			horse8=PhotoImage(file = "./images/horse8.png")
+			b1=Button(horseloot, image = horse1, command = choose1)
+			b1.place(x=8, y=40)
+			b2=Button(horseloot, image = horse2, command = choose2)
+			b2.place(x=108, y=40)
+			b3=Button(horseloot, image = horse3, command = choose3)
+			b3.place(x=208, y=40)
+			b4=Button(horseloot, image = horse4, command = choose4)
+			b4.place(x=308, y=40)
+			b5=Button(horseloot, image = horse5, command = choose5)
+			b5.place(x=8, y=130)
+			b6=Button(horseloot, image = horse6, command = choose6)
+			b6.place(x=108, y=130)
+			b7=Button(horseloot, image = horse7, command = choose7)
+			b7.place(x=208, y=130)
+			b8=Button(horseloot, image = horse8, command = choose8)
+			b8.place(x=308, y=130)
+			horseloot.mainloop()
+		"""
+		stock(주식)
+		"""
+		# stock(주식)
+		def stock():
+			# self.stocklist=[[],[],[],[],[],[],[],[],[],[]] # [이름, 남은개수, 가격]
+			# self.stockfluct=[[],[],[],[],[],[],[],[],[],[]]
+			# self.havestock=[[],[],[],[],[],[],[],[],[],[]] # [이름, 개수]
+			stockroot = Toplevel(self.root)
+			stockroot.title("주식")
+			stockroot.geometry("600x347")
+			field_pic=PhotoImage(file = "./images/stock.png")
+			field=Label(stockroot, image=field_pic)
+			field.place(x=0, y=0)
+			font = tk.font.Font(root, size=15, weight='bold')
+			font2 = tk.font.Font(root, size=14, weight='bold')
+			def buy1():
+				get=be1.get()
+				if get.isdigit() and self.stocklist[0][1]>=int(get) and int(get)*self.stocklist[0][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[0][2]
+					if len(self.havestock[0])==0:
+						self.havestock[0].append(self.stocklist[0][0])
+						self.havestock[0].append(int(get))
+					else:
+						self.havestock[0][1]+=int(get)
+					self.stocklist[0][1] -= int(get)
+					string = self.stocklist[0][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[0][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be1.get()
+			def sell1():
+				get=se1.get()
+				if get.isdigit() and len(self.havestock[0])!=0 and self.havestock[0][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[0][2]
+					self.stocklist[0][1] += int(get)
+					self.havestock[0][1] -= int(get)
+					string = self.stocklist[0][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[0][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se1.get()
+			def buy2():
+				get=be2.get()
+				if get.isdigit() and self.stocklist[1][1]>=int(get) and int(get)*self.stocklist[1][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[1][2]
+					if len(self.havestock[1])==0:
+						self.havestock[1].append(self.stocklist[1][0])
+						self.havestock[1].append(int(get))
+					else:
+						self.havestock[1][1]+=int(get)
+					self.stocklist[1][1] -= int(get)
+					string = self.stocklist[1][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[1][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be2.get()
+			def sell2():
+				get=se2.get()
+				if get.isdigit() and len(self.havestock[1])!=0 and self.havestock[1][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[1][2]
+					self.stocklist[1][1] += int(get)
+					self.havestock[1][1] -= int(get)
+					string = self.stocklist[1][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[1][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se2.get()
+			def buy3():
+				get=be3.get()
+				if get.isdigit() and self.stocklist[2][1]>=int(get) and int(get)*self.stocklist[2][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[2][2]
+					if len(self.havestock[2])==0:
+						self.havestock[2].append(self.stocklist[2][0])
+						self.havestock[2].append(int(get))
+					else:
+						self.havestock[2][1]+=int(get)
+					self.stocklist[2][1] -= int(get)
+					string = self.stocklist[2][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[2][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be3.get()
+			def sell3():
+				get=se3.get()
+				if get.isdigit() and len(self.havestock[2])!=0 and self.havestock[2][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[2][2]
+					self.stocklist[2][1] += int(get)
+					self.havestock[2][1] -= int(get)
+					string = self.stocklist[2][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[2][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se3.get()
+			def buy4():
+				get=be4.get()
+				if get.isdigit() and self.stocklist[3][1]>=int(get) and int(get)*self.stocklist[3][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[3][2]
+					if len(self.havestock[3])==0:
+						self.havestock[3].append(self.stocklist[3][0])
+						self.havestock[3].append(int(get))
+					else:
+						self.havestock[3][1]+=int(get)
+					self.stocklist[3][1] -= int(get)
+					string = self.stocklist[3][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[3][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be4.get()
+			def sell4():
+				get=se4.get()
+				if get.isdigit() and len(self.havestock[3])!=0 and self.havestock[3][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[3][2]
+					self.stocklist[3][1] += int(get)
+					self.havestock[3][1] -= int(get)
+					string = self.stocklist[3][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[3][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se4.get()
+			def buy5():
+				get=be5.get()
+				if get.isdigit() and self.stocklist[4][1]>=int(get) and int(get)*self.stocklist[4][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[4][2]
+					if len(self.havestock[4])==0:
+						self.havestock[4].append(self.stocklist[4][0])
+						self.havestock[4].append(int(get))
+					else:
+						self.havestock[4][1]+=int(get)
+					self.stocklist[4][1] -= int(get)
+					string = self.stocklist[4][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[4][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be5.get()
+			def sell5():
+				get=se5.get()
+				if get.isdigit() and len(self.havestock[4])!=0 and self.havestock[4][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[4][2]
+					self.stocklist[4][1] += int(get)
+					self.havestock[4][1] -= int(get)
+					string = self.stocklist[4][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[4][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se5.get()
+			def buy6():
+				get=be6.get()
+				if get.isdigit() and self.stocklist[5][1]>=int(get) and int(get)*self.stocklist[5][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[5][2]
+					if len(self.havestock[5])==0:
+						self.havestock[5].append(self.stocklist[5][0])
+						self.havestock[5].append(int(get))
+					else:
+						self.havestock[5][1]+=int(get)
+					self.stocklist[5][1] -= int(get)
+					string = self.stocklist[5][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[5][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be6.get()
+			def sell6():
+				get=se6.get()
+				if get.isdigit() and len(self.havestock[5])!=0 and self.havestock[5][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[5][2]
+					self.stocklist[5][1] += int(get)
+					self.havestock[5][1] -= int(get)
+					string = self.stocklist[5][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[5][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se6.get()
+			def buy7():
+				get=be7.get()
+				if get.isdigit() and self.stocklist[6][1]>=int(get) and int(get)*self.stocklist[6][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[6][2]
+					if len(self.havestock[6])==0:
+						self.havestock[6].append(self.stocklist[6][0])
+						self.havestock[6].append(int(get))
+					else:
+						self.havestock[6][1]+=int(get)
+					self.stocklist[6][1] -= int(get)
+					string = self.stocklist[6][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[6][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be7.get()
+			def sell7():
+				get=se7.get()
+				if get.isdigit() and len(self.havestock[6])!=0 and self.havestock[6][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[6][2]
+					self.stocklist[6][1] += int(get)
+					self.havestock[6][1] -= int(get)
+					string = self.stocklist[6][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[6][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se7.get()
+			def buy8():
+				get=be8.get()
+				if get.isdigit() and self.stocklist[7][1]>=int(get) and int(get)*self.stocklist[7][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[7][2]
+					if len(self.havestock[7])==0:
+						self.havestock[7].append(self.stocklist[7][0])
+						self.havestock[7].append(int(get))
+					else:
+						self.havestock[7][1]+=int(get)
+					self.stocklist[7][1] -= int(get)
+					string = self.stocklist[7][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[7][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be8.get()
+			def sell8():
+				get=se8.get()
+				if get.isdigit() and len(self.havestock[7])!=0 and self.havestock[7][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[7][2]
+					self.stocklist[7][1] += int(get)
+					self.havestock[7][1] -= int(get)
+					string = self.stocklist[7][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[7][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se8.get()
+			def buy9():
+				get=be9.get()
+				if get.isdigit() and self.stocklist[8][1]>=int(get) and int(get)*self.stocklist[8][2] < self.money:
+					self.date+=1
+					self.money -= int(get)*self.stocklist[8][2]
+					if len(self.havestock[8])==0:
+						self.havestock[8].append(self.stocklist[8][0])
+						self.havestock[8].append(int(get))
+					else:
+						self.havestock[8][1]+=int(get)
+					self.stocklist[8][1] -= int(get)
+					string = self.stocklist[8][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[8][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be9.get()
+			def sell9():
+				get=se9.get()
+				if get.isdigit() and len(self.havestock[8])!=0 and self.havestock[8][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[8][2]
+					self.stocklist[8][1] += int(get)
+					self.havestock[8][1] -= int(get)
+					string = self.stocklist[8][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[8][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se9.get()
+			def buy10():
+				get=be10.get()
+				if get.isdigit() and self.stocklist[9][1]>=int(get) and int(get)*self.stocklist[9][2] < self.money:
+					self.date+=1
+					elf.money -= int(get)*self.stocklist[9][2]
+					if len(self.havestock[9])==0:
+						self.havestock[9].append(self.stocklist[9][0])
+						self.havestock[9].append(int(get))
+					else:
+						self.havestock[9][1]+=int(get)
+					self.stocklist[9][1] -= int(get)
+					string = self.stocklist[9][0]+" 주식을 "+get+"주 구입했습니다.\n"
+					string += str(int(get)*self.stocklist[9][2])+"원을 주식에 지출했습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=be10.get()
+			def sell10():
+				get=se10.get()
+				if get.isdigit() and len(self.havestock[9])!=0 and self.havestock[9][1]>=int(get): 
+					self.date+=1
+					self.money += int(get)*self.stocklist[9][2]
+					self.stocklist[9][1] += int(get)
+					self.havestock[9][1] -= int(get)
+					string = self.stocklist[9][0]+" 주식을 "+get+"주 판매했습니다.\n"
+					string += str(int(get)*self.stocklist[9][2])+"원을 얻었습니다.\n"
+					check = self.addannounce(string, stockroot)
+					if check:
+						self.update()
+						stockroot.destroy()
+						stockroot.quit()
+				else:
+					get=se10.get()
+			def r1():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[0][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[0])):
+					if self.stockfluct[0][i]>0:
+						string+="↑ "+str(self.stockfluct[0][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[0][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r2():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[1][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[1])):
+					if self.stockfluct[1][i]>0:
+						string+="↑ "+str(self.stockfluct[1][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[1][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r3():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[2][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[2])):
+					if self.stockfluct[2][i]>0:
+						string+="↑ "+str(self.stockfluct[2][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[2][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r4():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[3][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[3])):
+					if self.stockfluct[3][i]>0:
+						string+="↑ "+str(self.stockfluct[3][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[3][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r5():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[4][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[4])):
+					if self.stockfluct[4][i]>0:
+						string+="↑ "+str(self.stockfluct[4][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[4][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r6():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[5][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[5])):
+					if self.stockfluct[5][i]>0:
+						string+="↑ "+str(self.stockfluct[5][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[5][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r7():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[6][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[6])):
+					if self.stockfluct[6][i]>0:
+						string+="↑ "+str(self.stockfluct[6][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[6][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r8():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[7][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[7])):
+					if self.stockfluct[7][i]>0:
+						string+="↑ "+str(self.stockfluct[7][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[7][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r9():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[8][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[8])):
+					if self.stockfluct[8][i]>0:
+						string+="↑ "+str(self.stockfluct[8][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[8][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			def r10():
+				recentroot = Toplevel(stockroot)
+				recentroot.title("최근동향")
+				recentroot.geometry("100x250")
+				Label(recentroot, text=self.stocklist[9][0]+" 최근동향").place(x=7, y=5)
+				string=""
+				def quit():
+					recentroot.destroy()
+					recentroot.quit()
+				for i in range(len(self.stockfluct[9])):
+					if self.stockfluct[9][i]>0:
+						string+="↑ "+str(self.stockfluct[9][i])+"\n"
+					else:
+						string+="↓ "+str(self.stockfluct[9][i]*(-1))+"\n"
+				Label(recentroot, text=string).place(x=30, y=30)
+				quitbutton=Button(recentroot, text="확인", command=quit)
+				quitbutton.place(x=43, y=220)
+				recentroot.mainloop()
+			Label(stockroot, text=self.stocklist[0][0]).place(x=45, y=10)
+			Label(stockroot, text="\\"+str(self.stocklist[0][2])+" / "+str(self.stocklist[0][1])+"주 남음").place(x=10, y=30)
+			Label(stockroot, text="사기").place(x=15, y=57)
+			Label(stockroot, text="팔기").place(x=15, y=87)
+			be1 = Entry(stockroot,  width=5)
+			be1.place(x=50, y=57)
+			se1 = Entry(stockroot,  width=5)
+			se1.place(x=50, y=87)
+			b1 = Button(stockroot, text="확인", command=buy1)
+			b1.place(x=95, y=55)
+			s1 = Button(stockroot, text="확인", command=sell1)
+			s1.place(x=95, y=85)
+			Label(stockroot, text=self.stocklist[1][0]).place(x=195, y=10)
+			Label(stockroot, text="\\"+str(self.stocklist[1][2])+" / "+str(self.stocklist[1][1])+"주 남음").place(x=160, y=30)
+			Label(stockroot, text="사기").place(x=165, y=57)
+			Label(stockroot, text="팔기").place(x=165, y=87)
+			be2 = Entry(stockroot,  width=5)
+			be2.place(x=200, y=57)
+			se2 = Entry(stockroot,  width=5)
+			se2.place(x=200, y=87)
+			b2 = Button(stockroot, text="확인", command=buy2)
+			b2.place(x=245, y=55)
+			s2 = Button(stockroot, text="확인", command=sell2)
+			s2.place(x=245, y=85)
+			Label(stockroot, text=self.stocklist[2][0]).place(x=345, y=10)
+			Label(stockroot, text="\\"+str(self.stocklist[2][2])+" / "+str(self.stocklist[2][1])+"주 남음").place(x=310, y=30)
+			Label(stockroot, text="사기").place(x=315, y=57)
+			Label(stockroot, text="팔기").place(x=315, y=87)
+			be3 = Entry(stockroot,  width=5)
+			be3.place(x=350, y=57)
+			se3 = Entry(stockroot,  width=5)
+			se3.place(x=350, y=87)
+			b3 = Button(stockroot, text="확인", command=buy3)
+			b3.place(x=395, y=55)
+			s3 = Button(stockroot, text="확인", command=sell3)
+			s3.place(x=395, y=85)
+			Label(stockroot, text=self.stocklist[3][0]).place(x=495, y=10)
+			Label(stockroot, text="\\"+str(self.stocklist[3][2])+" / "+str(self.stocklist[3][1])+"주 남음").place(x=460, y=30)
+			Label(stockroot, text="사기").place(x=465, y=57)
+			Label(stockroot, text="팔기").place(x=465, y=87)
+			be4 = Entry(stockroot,  width=5)
+			be4.place(x=500, y=57)
+			se4 = Entry(stockroot,  width=5)
+			se4.place(x=500, y=87)
+			b4 = Button(stockroot, text="확인", command=buy4)
+			b4.place(x=545, y=55)
+			s4 = Button(stockroot, text="확인", command=sell4)
+			s4.place(x=545, y=85)
+			Label(stockroot, text=self.stocklist[4][0]).place(x=45, y=120)
+			Label(stockroot, text="\\"+str(self.stocklist[4][2])+" / "+str(self.stocklist[4][1])+"주 남음").place(x=10, y=140)
+			Label(stockroot, text="사기").place(x=15, y=167)
+			Label(stockroot, text="팔기").place(x=15, y=197)
+			be5 = Entry(stockroot,  width=5)
+			be5.place(x=50, y=167)
+			se5 = Entry(stockroot,  width=5)
+			se5.place(x=50, y=197)
+			b5 = Button(stockroot, text="확인", command=buy5)
+			b5.place(x=95, y=165)
+			s5 = Button(stockroot, text="확인", command=sell5)
+			s5.place(x=95, y=195)
+			Label(stockroot, text=self.stocklist[5][0]).place(x=195, y=120)
+			Label(stockroot, text="\\"+str(self.stocklist[5][2])+" / "+str(self.stocklist[5][1])+"주 남음").place(x=160, y=140)
+			Label(stockroot, text="사기").place(x=165, y=167)
+			Label(stockroot, text="팔기").place(x=165, y=197)
+			be6 = Entry(stockroot,  width=5)
+			be6.place(x=200, y=167)
+			se6 = Entry(stockroot,  width=5)
+			se6.place(x=200, y=197)
+			b6 = Button(stockroot, text="확인", command=buy6)
+			b6.place(x=245, y=165)
+			s6 = Button(stockroot, text="확인", command=sell6)
+			s6.place(x=245, y=195)
+			Label(stockroot, text=self.stocklist[6][0]).place(x=345, y=120)
+			Label(stockroot, text="\\"+str(self.stocklist[6][2])+" / "+str(self.stocklist[6][1])+"주 남음").place(x=310, y=140)
+			Label(stockroot, text="사기").place(x=315, y=167)
+			Label(stockroot, text="팔기").place(x=315, y=197)
+			be7 = Entry(stockroot,  width=5)
+			be7.place(x=350, y=167)
+			se7 = Entry(stockroot,  width=5)
+			se7.place(x=350, y=197)
+			b7 = Button(stockroot, text="확인", command=buy7)
+			b7.place(x=395, y=165)
+			s7 = Button(stockroot, text="확인", command=sell7)
+			s7.place(x=395, y=195)
+			Label(stockroot, text=self.stocklist[7][0]).place(x=495, y=120)
+			Label(stockroot, text="\\"+str(self.stocklist[7][2])+" / "+str(self.stocklist[7][1])+"주 남음").place(x=460, y=140)
+			Label(stockroot, text="사기").place(x=465, y=167)
+			Label(stockroot, text="팔기").place(x=465, y=197)
+			be8 = Entry(stockroot,  width=5)
+			be8.place(x=500, y=167)
+			se8 = Entry(stockroot,  width=5)
+			se8.place(x=500, y=197)
+			b8 = Button(stockroot, text="확인", command=buy8)
+			b8.place(x=545, y=165)
+			s8 = Button(stockroot, text="확인", command=sell8)
+			s8.place(x=545, y=195)
+			Label(stockroot, text=self.stocklist[8][0]).place(x=45, y=230)
+			Label(stockroot, text="\\"+str(self.stocklist[8][2])+" / "+str(self.stocklist[8][1])+"주 남음").place(x=10, y=250)
+			Label(stockroot, text="사기").place(x=15, y=277)
+			Label(stockroot, text="팔기").place(x=15, y=307)
+			be9 = Entry(stockroot,  width=5)
+			be9.place(x=50, y=277)
+			se9 = Entry(stockroot,  width=5)
+			se9.place(x=50, y=307)
+			b9 = Button(stockroot, text="확인", command=buy9)
+			b9.place(x=95, y=275)
+			s9 = Button(stockroot, text="확인", command=sell9)
+			s9.place(x=95, y=305)
+			Label(stockroot, text=self.stocklist[9][0]).place(x=195, y=230)
+			Label(stockroot, text="\\"+str(self.stocklist[9][2])+" / "+str(self.stocklist[9][1])+"주 남음").place(x=160, y=250)
+			Label(stockroot, text="사기").place(x=165, y=277)
+			Label(stockroot, text="팔기").place(x=165, y=307)
+			be10 = Entry(stockroot,  width=5)
+			be10.place(x=200, y=277)
+			se10 = Entry(stockroot,  width=5)
+			se10.place(x=200, y=307)
+			b10 = Button(stockroot, text="확인", command=buy10)
+			b10.place(x=245, y=275)
+			s10 = Button(stockroot, text="확인", command=sell10)
+			s10.place(x=245, y=305)
+			Label(stockroot, text="최근동향").place(x=415, y=240)
+			r1 = Button(stockroot, text=self.stocklist[0][0], command=r1)
+			r1.place(x=295, y=265)
+			r2 = Button(stockroot, text=self.stocklist[1][0], command=r2)
+			r2.place(x=355, y=265)
+			r3 = Button(stockroot, text=self.stocklist[2][0], command=r3)
+			r3.place(x=415, y=265)
+			r4 = Button(stockroot, text=self.stocklist[3][0], command=r4)
+			r4.place(x=475, y=265)
+			r5 = Button(stockroot, text=self.stocklist[4][0], command=r5)
+			r5.place(x=535, y=265)
+			r6 = Button(stockroot, text=self.stocklist[5][0], command=r6)
+			r6.place(x=295, y=305)
+			r7 = Button(stockroot, text=self.stocklist[6][0], command=r7)
+			r7.place(x=355, y=305)
+			r8 = Button(stockroot, text=self.stocklist[7][0], command=r8)
+			r8.place(x=415, y=305)
+			r9 = Button(stockroot, text=self.stocklist[8][0], command=r9)
+			r9.place(x=475, y=305)
+			r10 = Button(stockroot, text=self.stocklist[9][0], command=r10)
+			r10.place(x=535, y=305)
+			stockroot.mainloop()
+		"""
+		loan(대출)
+		"""
+		# loan(대출)
 
 """
 main method
