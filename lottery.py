@@ -1772,6 +1772,246 @@ class Main:
 		loan(대출)
 		"""
 		# loan(대출)
+		def loan():
+			loanroot = Toplevel(self.root)
+			loanroot.title("ATM")
+			loanroot.geometry("250x165")
+			field_pic=PhotoImage(file = "./images/atm.png")
+			field=Label(loanroot, image=field_pic).place(x=0, y=0)
+			def quit():
+				money=amount.get()
+				if money.isdigit() and int(money)>=100000:
+					if self.bank_debt>10000000:
+						cannot = Toplevel(loanroot)
+						cannot.title("대출 불가")
+						Label(cannot, text = "현재 대출한 금액이 1000만원이 넘어 대출하실 수 없습니다.").pack()
+						def quit():
+							cannot.destroy()
+							cannot.quit()
+						quitbutton = Button(cannot,text = "확인", command = quit)
+						quitbutton.pack()
+						cannot.mainloop()
+					else:
+						self.date+=1
+						self.money+=int(money)
+						self.bank_debt+=int(money)
+						check=self.addannounce(money+"원을 대출했습니다.\n", loanroot)
+						if check:
+							self.update()
+							loanroot.destroy()
+							loanroot.quit()
+				else:
+					money=amount.get()
+			def quit2():
+				money=amount2.get()
+				if money.isdigit() and int(money)<=self.bank_debt:
+					self.date+=1
+					self.money-=int(money)
+					self.bank_debt-=int(money)
+					check=self.addannounce(money+"원을 갚았습니다.\n", loanroot)
+					if check:
+						self.update()
+						loanroot.destroy()
+						loanroot.quit()
+				else:
+					money=amount2.get()
+			Label(loanroot, text="얼마를 갚으시겠습니까?").place(x=63, y=15)
+			amount2=Entry(loanroot)
+			amount2.place(x=60, y=35)
+			Button(loanroot,text = "확인", command = quit2).place(x=115, y=55)
+			Label(loanroot, text="얼마를 빌리시겠습니까? (최소 10만)").place(x=25, y=90)
+			amount=Entry(loanroot)
+			amount.place(x=60, y=110)
+			Button(loanroot,text = "확인", command = quit).place(x=115, y=130)
+			loanroot.mainloop()
+
+		"""
+		bond(사채)
+		"""
+		# bond(사채)
+		def bond():
+			bondroot = Toplevel(self.root)
+			bondroot.title("산와머니")
+			bondroot.geometry("250x165")
+			field_pic=PhotoImage(file = "./images/bond.png")
+			field=Label(bondroot, image=field_pic).place(x=0, y=0)
+			def quit():
+				money=amount.get()
+				if money.isdigit() and int(money)>=500000:
+					if self.bank_debt>50000000:
+						cannot = Toplevel(bondroot)
+						cannot.title("대출 불가")
+						Label(cannot, text = "현재 대출한 금액이 5000만원이 넘어 대출하실 수 없습니다.").pack()
+						def quit():
+							cannot.destroy()
+							cannot.quit()
+						quitbutton = Button(cannot,text = "확인", command = quit)
+						quitbutton.pack()
+						cannot.mainloop()
+					else:
+						self.date+=1
+						self.money+=int(money)
+						self.private_debt+=int(money)
+						check=self.addannounce(money+"원을 대출했습니다.\n", bondroot)
+						if check:
+							self.update()
+							bondroot.destroy()
+							bondroot.quit()
+				else:
+					money=amount.get()
+			def quit2():
+				money=amount2.get()
+				if money.isdigit() and int(money)<=self.private_debt:
+					self.date+=1
+					self.money-=int(money)
+					self.private_debt-=int(money)
+					check = self.addannounce(money+"원을 갚았습니다.\n", bondroot)
+					if check:
+						self.update()
+						bondroot.destroy()
+						bondroot.quit()
+				else:
+					money=amount2.get()
+			Label(bondroot, text="얼마를 갚으시겠습니까?").place(x=63, y=15)
+			amount2=Entry(bondroot)
+			amount2.place(x=60, y=35)
+			Button(bondroot,text = "확인", command = quit2).place(x=115, y=55)
+			Label(bondroot, text="얼마를 빌리시겠습니까? (최소 50만)").place(x=25, y=90)
+			amount=Entry(bondroot)
+			amount.place(x=60, y=110)
+			Button(bondroot,text = "확인", command = quit).place(x=115, y=130)
+			bondroot.mainloop()
+		"""
+		fraud(사기)
+		"""
+		# fraud(사기)
+		def fraud():
+			check=self.arrested()
+			if check:
+				fraudroot = Toplevel(self.root)
+				fraudroot.title("사기치기")
+				fraudroot.geometry("250x250")
+				fraudtype=random.randrange(5)
+				if fraudtype==1:
+					message = "보이스피싱을 했습니다\n"
+				elif fraudtype==2:
+					message = "게임머니 사기를 쳤습니다\n"
+				elif fraudtype==3:
+					message = "중고나라 사기를 쳤습니다\n"
+				elif fraudtype==4:
+					message = "친구에게 사기를 쳤습니다\n"
+				else:
+					message = "다단계로 물건을 팔았습니다\n"
+				fraudmoney = random.randrange(1, 301)*25000
+				for i in range(0, 8):
+					Label(fraudroot, text="            ").grid(row=i, column=0)
+				field_pic=PhotoImage(file = "./images/fraud.png")
+				field=Label(fraudroot, image=field_pic)
+				field.place(x=0, y=0)
+				result = Label(fraudroot, text=message+str(fraudmoney)+"원을 얻었습니다.")
+				result.grid(row=8, column=1)
+				def quit():
+					self.date+=1
+					self.money+=fraudmoney
+					string="사기로 "+str(fraudmoney)+"원을 획득였습니다.\n경찰의 주시도가 높아졌습니다.\n"
+					self.addannounce(string, fraudroot)
+					ran=random.randrange(50, 125)
+					self.police_stars+=ran
+					self.update()
+					fraudroot.destroy()
+					fraudroot.quit()
+				Button(fraudroot,text = "확인", command = quit).place(x=110, y=210)
+				fraudroot.mainloop()
+		"""
+		totolotto(토토복권)
+		"""
+		# totolotto(토토복권)
+		def toto():
+			teamlist = ["대한민국", "일본", "중국", "미국", "프랑스", "독일", "영국", "스페인", "아르헨티나", "브라질", "그리스", "러시아", "호주"]
+			team1 = teamlist.pop(random.randrange(13))
+			team2 = teamlist.pop(random.randrange(12))
+			team1_score=random.randrange(4)
+			team2_score=random.randrange(4)
+			totoroot = Toplevel(self.root)
+			totoroot.title("토토복권")
+			totoroot.geometry("297x210")
+			field_pic=PhotoImage(file = "./images/toto.png")
+			field=Label(totoroot, image=field_pic)
+			field.place(x=0, y=0)
+			font = tk.font.Font(root, size=15, weight='bold')
+			font2 = tk.font.Font(root, size=14, weight='bold')
+			msg=Label(totoroot, text="스코어를 입력하세요(3점 이하)")
+			msg['font']=font
+			msg.place(x=10, y=40)
+			team=Label(totoroot, text=team1+" VS "+team2)
+			team['font']=font2
+			team.place(x=78, y=90)
+			score1=Entry(totoroot)
+			score1.place(x=105, y=140, width=30)
+			VS=Label(totoroot, text="VS")
+			VS.place(x=140, y=140)
+			score2=Entry(totoroot)
+			score2.place(x=165, y=140, width=30)
+			def quit():
+				input1=score1.get()
+				input2=score2.get()
+				self.date+=1
+				if input1.isdigit() and 0 <= int(input1) and int(input1) <= 3 and input2.isdigit() and 0 <= int(input2) and int(input2):
+					if team1_score==int(input1) and team2_score==int(input2):
+						addmoney=750000*random.randrange(3, 15)
+						self.money+=addmoney
+						string=team1 + " VS "+team2+"의 경기는 \n" + str(team1_score) + " 대 " + str(team2_score) +"으로 끝났습니다.\n"+str(addmoney)+"원을 따냈습니다.\n"
+					else:
+						self.money-=500000
+						string=team1 + " VS "+team2+"의 경기는 \n" + str(team1_score) + " 대 " + str(team2_score) +"으로 끝났습니다.\n500000원을 잃었습니다.\n"
+					check = self.addannounce(string, totoroot)
+					if check:
+						self.update()
+						totoroot.destroy()
+						totoroot.quit()
+				else:
+					input1=score1.get()
+					input2=score2.get()	
+			Button(totoroot,text = "확인", command = quit).place(x=133, y=170)
+			totoroot.mainloop()
+		font = tk.font.Font(self.root, size=13)
+		font2 = tk.font.Font(self.root, size=11)
+		for i in range(3, 10):
+			if(i%2==1):
+				Label(self.root ,text = "").grid(row=i, column=0)
+		day_lottery = Button(self.root,text = "일일복권 하러가기", command = d_lotto)
+		day_lottery['font']=font
+		day_lottery.grid(row=2, column=1)
+		imm_lottery = Button(self.root,text = "즉석복권 하러가기", command = i_lotto)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=4, column=1)
+		lot_lottery = Button(self.root,text = "로또복권 하러가기", command = l_lotto)
+		lot_lottery['font']=font
+		lot_lottery.grid(row=6, column=1)
+		lot_lottery = Button(self.root,text = "맞고 치러가기", command = matgo)
+		lot_lottery['font']=font
+		lot_lottery.grid(row=8, column=1)
+		lot_lottery = Button(self.root,text = "경마 하러가기", command = horse)
+		lot_lottery['font']=font
+		lot_lottery.grid(row=10, column=1)
+		imm_lottery = Button(self.root,text = "주식 하러가기", command = stock)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=2, column=3)
+		imm_lottery = Button(self.root,text = "은행 찾아가기", command = loan)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=4, column=3)
+		Label(self.root,text = "하루이자 5%").grid(row=5, column=3)
+		imm_lottery = Button(self.root,text = "사채 찾아가기", command = bond)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=6, column=3)
+		Label(self.root,text = "하루이자 20%").grid(row=7, column=3)
+		imm_lottery = Button(self.root,text = "사기치기", command = fraud)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=8, column=3)
+		imm_lottery = Button(self.root,text = "토토복권 하러가기", command = toto)
+		imm_lottery['font']=font
+		imm_lottery.grid(row=10, column=3)
+		self.root.mainloop()
 
 """
 main method
