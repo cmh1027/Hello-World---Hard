@@ -24,7 +24,7 @@ class MatgoController:
         for k in self.__deck.current:
             self.__cardimg.append([PhotoImage(file = "./img_matgo/"+k.img), k.img])
         self.__bombimg=PhotoImage(file = "./img_matgo/폭탄.png")
-        self.__mulitple = 1 # 배율
+        self.__mulitple = 1 
         self.__field=[[], [], [], [], [], [], [], [], [], [], [], []]
         if first==2:
             self.__first=0
