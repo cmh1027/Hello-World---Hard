@@ -9,7 +9,7 @@ class AI:
 	def __init__(self, ai):
 		self.__ai=ai
 	def cardchoose(self, aiobject, playerobject, field, deck):
-		self.__deck=deck
+		self.__deck=deck # Deck
 		self.__aiobject=aiobject
 		self.__playerobject=playerobject
 		self.__field=field
