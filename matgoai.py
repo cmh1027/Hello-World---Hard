@@ -10,7 +10,7 @@ class AI:
 		self.__ai=ai
 	def cardchoose(self, aiobject, playerobject, field, deck):
 		self.__deck=deck # Deck
-		self.__aiobject=aiobject
+		self.__aiobject=aiobject # AI
 		self.__playerobject=playerobject
 		self.__field=field
 		if True:
