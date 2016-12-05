@@ -11,7 +11,7 @@ class AI:
 	def cardchoose(self, aiobject, playerobject, field, deck):
 		self.__deck=deck # Deck
 		self.__aiobject=aiobject # AI
-		self.__playerobject=playerobject
+		self.__playerobject=playerobject # Player
 		self.__field=field
 		if True:
 			for k in range(12):
