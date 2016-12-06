@@ -12,7 +12,7 @@ class AI:
 		self.__deck=deck # Deck
 		self.__aiobject=aiobject # AI
 		self.__playerobject=playerobject # Player
-		self.__field=field
+		self.__field=field # Field
 		if True:
 			for k in range(12):
 				if len(field[k])==2:
