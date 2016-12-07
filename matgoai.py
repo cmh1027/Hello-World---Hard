@@ -2794,7 +2794,7 @@ class AI:
 					return False
 				else:
 					return True
-		else: # impossible
+		else: 
 			player_hand_pee=0
 			player_hand_animal=0
 			for k in range(len(playerobject.hand)):
