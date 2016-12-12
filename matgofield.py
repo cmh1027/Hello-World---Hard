@@ -151,7 +151,7 @@ class fields:
 											last_field = ffield
 											temp=False
 											count = 0
-											for i in ffield: #
+											for i in ffield:
 												if i == []:
 													count += 1
 											if count == 12:
