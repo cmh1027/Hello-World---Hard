@@ -39,7 +39,7 @@ class Main:
 		self.today = Label(self.root,text = "도박인생 "+str(self.date)+"일차", relief="solid", padx=5, pady=5)
 		self.today['font']=font2
 		self.today.place(x=230, y=0)
-		self.stocklist=[[],[],[],[],[],[],[],[],[],[]] # [이름, 남은개수, 가격] #
+		self.stocklist=[[],[],[],[],[],[],[],[],[],[]] # [이름, 남은개수, 가격]
 		self.stockfluct=[[],[],[],[],[],[],[],[],[],[]]
 		self.havestock=[[],[],[],[],[],[],[],[],[],[]] # [이름, 개수]
 		self.namelist=["사성", "랏데", "제일", "와이", "근대", "피케", "한하", "도산", "넥손", "키아"]
