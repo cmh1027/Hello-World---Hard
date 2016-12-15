@@ -1094,7 +1094,7 @@ def main(root):
             if not (player_money.isdigit() and computer_money.isdigit()) or \
             not (ai=='easy' or ai=='normal' or ai=='hard' or ai=='hell' or ai=='impossible') or \
             name=="":
-                label = Label(slot1_window,text = "세이브 파일이 없거나 손상되었습니다.")
+                label = Label(slot1_window,text = "세이브 파일이 없거나 손상되었습니다")
                 label.pack()
             else:
                 label1 = Label(slot1_window,text = "성공적으로 불러왔습니다.")
