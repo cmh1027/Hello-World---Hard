@@ -7,21 +7,12 @@ from tkinter import *
 class Turn:
 	@staticmethod
 	def playerturn(player, computer, field, deck, a):
-		print("\n[ 플레이어 턴 ]")
-		playercard = player.put(a)
+		playercard = player.put(a, field)
 		next = deck.next()
-		#playercard = player.comput(AI("impossible").cardchoose(player, computer, field, deck)) # 카드번호를 내줘야함
 		cards, field_result, c2p = fields(player, playercard, field, next, playercard.special=="폭탄").result()
-		print("[ ", end='')		
-		for k in cards:
-			print(k, end=' ')
-		print(" ] 를 얻으셨습니다. "+str(c2p)+" 개의 피를 가져옵니다.")
-
-		# 얻은 카드 / 낸 후 필드 / 뺏어와야 하는 피
+		if c2p>0:
+			print(str(c2p)+" 개의 피를 가져옵니다.\n")
 		dual=None
-		#for i in range(len(cards)):
-		#	if cards[i].month=="9" and cards[i].special=="쌍피열끗":
-		#		dual = AI("impossible").determine(player, computer, field, deck)
 		for i in range(len(cards)):
 			if cards[i].month=="9" and cards[i].special=="쌍피열끗":
 				dual = Reader.choose(a)
@@ -33,15 +24,12 @@ class Turn:
 
 	@staticmethod
 	def computerturn(player, computer, field, deck, ai):
-		print("\n[ 컴퓨터 턴 ]")
-		comcard = computer.comput(ai.cardchoose(computer, player, field, deck)) # 카드번호를 내줘야함
+		comcard = computer.comput(ai.cardchoose(computer, player, field, deck))
 		next = deck.next()
 		comcard.flip()
 		cards, field_result, p2c = fields(computer, comcard, field, next, comcard.special=="폭탄").result()
-		print("컴퓨터가 [ ", end='')		
-		for k in cards:
-			print(k, end=' ')
-		print(" ] 를 얻었습니다. "+str(p2c)+" 개의 피를 빼앗깁니다.")
+		if p2c>0:
+			print(str(p2c)+" 개의 피를 빼앗깁니다.\n")
 		dual=None
 		for i in range(len(cards)):
 			if cards[i].month=="9" and cards[i].special=="쌍피열끗":

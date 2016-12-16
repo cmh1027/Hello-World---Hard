@@ -2,7 +2,7 @@ class Score:
 	def __init__(self, obj):
 		self.__obj=obj
 
-	def result(self): # 출력되는 점수
+	def result(self):
 		score=0
 		if len(self.__obj.godori)==3:
 			score +=5
@@ -50,14 +50,7 @@ class Score:
 			multiple_arr.append("피박")
 		if self.__obj.go_display>=0 and enemyobj.go_display>=1:
 			multiple=multiple*2
-			multiple_arr.append("고박")
 			multiple=multiple*2**self.__obj.shake_display
 		if self.__obj.shake_display>0:
-			print(self.__obj.shake_display,"번 흔듦")
 			multiple_arr.append(str(self.__obj.shake_display)+"번 흔듦")
 		return (multiple,multiple_arr)
-		# 멍따 : 열끗 7개 // 2배
-		# 광박 : 3개 이상인데 상대는 광이 없을때 // 2배
-		# 피박 : 피 점수 얻음. 상대 피 <=7 // 2배
-		# 고박 : 내가 고/스톱을 했는데 상대가 고 했으면 // 2배
-		# 흔들기 : 개당 2배

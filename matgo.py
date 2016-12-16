@@ -47,7 +47,7 @@ class MatgoController:
         self.__nagari+=1
     def play(self,a): # 판돈*score, 누가 이겼는지 return
         if self.__nagari==0:
-            self.__panmoney=Reader.panmoney(self.__playermoney, self.__computermoney,root)
+            self.__panmoney=10000
         self.__panmoney=self.__panmoney*2**(self.__nagari)
         deck = self.__deck
         play_window = Toplevel(a)
@@ -88,14 +88,14 @@ class MatgoController:
                 if i!=k and self.__field[i]!=[] and self.__field[k]!=[] and self.__field[i][0].month==self.__field[k][0].month:
                     self.__field[i].append(self.__field[k].pop())
 
-        for i in range(12): # 총통인 4개의 카드를 GUI로 출력해야 함
+        for i in range(12):
             if len(player.month_arrange()[i])==4:
                 player_4cards=True
                 store_mi = i
             if len(computer.month_arrange()[i])==4:
                 computer_4cards=True
                 store_ci = i
-        for i in range(8): # 필드에 총통
+        for i in range(8):
             if len(self.__field[i])==4:
                 if self.__first==0:
                     if computer_4cards == 'True':
@@ -371,6 +371,7 @@ class MatgoController:
                     check = Turn.player_go_stop(player,a)
                     # check = Turn.computer_go_stop(player, computer, self.__field, self.__deck, self.__ai)
                     if not check:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         self.__multiple=Score(player).multiple(computer)[0]
                         win_window = Toplevel(a)
                         def finish():
@@ -480,6 +481,7 @@ class MatgoController:
                     elif len(player.hand)%3==2:
                         time.sleep(0.2)
                     if computer.fuck_display==3:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         fuckwin_window = Toplevel(a)
                         def finish():
                             fuckwin_window.destroy()
@@ -492,6 +494,7 @@ class MatgoController:
                         return ["computer", 10*self.__panmoney]
                     if len(computer.hand)==0:
                         if computer.score>=7 and computer_score_last < computer.score:
+                            self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                             self.__multiple=Score(computer).multiple(player)[0]
                             win_window = Toplevel(a)
                             def finish():
@@ -506,6 +509,7 @@ class MatgoController:
                             win_window.mainloop()
                             return ["computer", self.__multiple*Score(computer).result_end()*self.__panmoney]
                         else:
+                            self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                             nagari_window = Toplevel(a)
                             nagari_label = Label(nagari_window,text="나가리입니다")
                             nagari_label.pack()
@@ -518,6 +522,7 @@ class MatgoController:
                             return ["nagari"]
                     check = Turn.computer_go_stop(computer, player, self.__field, self.__deck, self.__ai)
                     if not check:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         self.__multiple=Score(computer).multiple(player)[0]
                         win_window = Toplevel(a)
                         def finish():
@@ -670,6 +675,7 @@ class MatgoController:
                     copycomputer = copy.deepcopy(computer)
                     check = Turn.computer_go_stop(computer, player, self.__field, self.__deck, self.__ai)
                     if not check:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         self.__multiple=Score(computer).multiple(player)[0]
                         win_window = Toplevel(a)
                         def finish():
@@ -780,6 +786,7 @@ class MatgoController:
                         time.sleep(0.2)
 
                     if player.fuck_display==3:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         fuckwin_window = Toplevel(a)
                         def finish():
                             fuckwin_window.destroy()
@@ -792,6 +799,7 @@ class MatgoController:
                         return ["player", 10*self.__panmoney]
                     if len(player.hand)==0:
                         if player.score>=7 and player_score_last < player.score:
+                            self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                             self.__multiple=Score(player).multiple(computer)[0]
                             win_window = Toplevel(a)
                             def finish():
@@ -806,6 +814,7 @@ class MatgoController:
                             win_window.mainloop()
                             return ["player", self.__multiple*Score(player).result_end()*self.__panmoney]
                         else:
+                            self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                             nagari_window = Toplevel(a)
                             nagari_label = Label(nagari_window,text="나가리입니다")
                             nagari_label.pack()
@@ -820,6 +829,7 @@ class MatgoController:
                     check = Turn.player_go_stop(player,a)
                     # check = Turn.computer_go_stop(player, computer, self.__field, self.__deck, self.__ai)
                     if not check:
+                        self.gui(player, computer, copyfield, copyplayer, copycomputer, a)
                         self.__multiple=Score(player).multiple(computer)[0]
                         win_window = Toplevel(a)
                         def finish():
@@ -998,39 +1008,47 @@ class MatgoController:
         if not (handplayer.hand==[] and handcomputer.hand==[]):
             dec_img= self.__fliped
             dec = Label( image = dec_img)
-            dec.place(x = 500,y = 200)
-        playerfuck = Label(text = "뻑 갯수 : "+str(player.fuck_display))
-        playerfuck.place(x= 530, y=280)
+            dec.place(x = 400,y = 185)
+        playerfuck = Label(text = "뻑 : "+str(player.fuck_display))
+        playerfuck.place(x= 530, y=345)
         playerscore = Label(text = "점수 : "+str(player.score))
-        playerscore.place(x=530,y=300)
+        playerscore.place(x=530,y=375)
         playershake = Label(text = "흔들기 : " + str(player.shake_display))
-        playershake.place(x=530,y=320)
-        playergwang = Label(text = "광 : " + str(len(player.gwang)+len(player.beegwang)))
-        playergwang.place(x=530,y=360)
-        playeranimal = Label(text = "열끗 : " + str(len(player.animal)+len(player.godori)))
-        playeranimal.place(x=530,y=380)
-        playerdan = Label(text = "단 : " + str(len(player.reddan)+len(player.bluedan)+len(player.chodan)+len(player.dan)))
-        playerdan.place(x=530,y=400)
-        playerpee = Label(text = "피 : " + str(len(player.pee)+2*len(player.doublepee)))
-        playerpee.place(x=530,y=420)
-        computerfuck = Label(text = "뻑 갯수 : "+str(computer.fuck_display))
+        playershake.place(x=530,y=405)
+        playergo = Label(text = "고 : " + str(player.go_display))
+        playergo.place(x = 530, y=435)
+        if len(player.gwang)+len(player.beegwang)>0:
+            playergwang = Label(text = str(len(player.gwang)+len(player.beegwang)))
+            playergwang.place(x=15, y=325)
+        if len(player.animal)+len(player.godori)>0:
+            playeranimal = Label(text = str(len(player.animal)+len(player.godori)))
+            playeranimal.place(x=220, y=325)
+        if len(player.reddan)+len(player.bluedan)+len(player.chodan)+len(player.dan):
+            playerdan = Label(text= str(len(player.reddan)+len(player.bluedan)+len(player.chodan)+len(player.dan)))
+            playerdan.place(x=100, y=325)
+        if len(player.pee)+len(player.doublepee)>0:
+            playerpee = Label(text = str(len(player.pee)+2*len(player.doublepee)))
+            playerpee.place(x=340, y=325)
+        computerfuck = Label(text = "뻑 : "+str(computer.fuck_display))
         computerfuck.place(x= 530, y= 10)
         computerscore = Label(text = "점수 : "+str(computer.score))
-        computerscore.place(x=530,y=30)
+        computerscore.place(x=530,y=40)
         computershake = Label(text = "흔들기 : " + str(computer.shake_display))
-        computershake.place(x=530,y=50)
-        playergo = Label(text = "고 : " + str(player.go_display))
-        playergo.place(x = 530, y=340)
+        computershake.place(x=530,y=70)
         computergo = Label(text="고 :" +str(computer.go_display))
-        computergo.place(x=530,y=70)
-        computergwang = Label(text = "광 : " + str(len(computer.gwang)+len(computer.beegwang)))
-        computergwang.place(x=530,y=90)
-        computeranimal = Label(text = "열끗 : " + str(len(computer.animal)+len(computer.godori)))
-        computeranimal.place(x=530,y=110)
-        computerdan = Label(text = "단 : " + str(len(computer.reddan)+len(computer.bluedan)+len(computer.chodan)+len(computer.dan)))
-        computerdan.place(x=530,y=130)
-        computerpee = Label(text = "피 : " + str(len(computer.pee)+2*len(computer.doublepee)))
-        computerpee.place(x=530,y=150)
+        computergo.place(x=530,y=100)
+        if len(computer.gwang)+len(computer.beegwang)>0:
+            computergwang = Label(text = str(len(computer.gwang)+len(computer.beegwang)))
+            computergwang.place(x=15, y=75)
+        if len(computer.animal)+len(computer.godori)>0:
+            computeranimal = Label(text = str(len(computer.animal)+len(computer.godori)))
+            computeranimal.place(x=220, y=75)
+        if len(computer.dan)+len(computer.reddan)+len(computer.bluedan)+len(computer.chodan)>0:
+            computerdan = Label(text = str(len(computer.reddan)+len(computer.bluedan)+len(computer.chodan)+len(computer.dan)))
+            computerdan.place(x=100, y=75)
+        if len(computer.pee)+len(computer.doublepee):
+            computerpee = Label(text = str(len(computer.pee)+2*len(computer.doublepee)))
+            computerpee.place(x=340, y=75)
         a.update()
 
 
@@ -1042,84 +1060,15 @@ def main(root):
         window.destroy()
         window.quit()
     window.title("<<<맞고>>>")
-    btn_label = Label(window, text = "맞고 게임을 시작하시겠습니까?")
+    btn_label = Label(window, text = "맞고 게임을 시작합니다.")
     btn_label.grid(row=0,column=0)
     btn_start = Button(window, text = "Start",command =close_window)
     btn_start.grid(row = 1,column=0)
-    btn_quit = Button(window, text = "Quit",command = quit)
-    btn_quit.grid(row = 1, column = 1)
     window.mainloop()
-    while True:
-        ask = Reader.load(root)
-        if ask:
-            slot_window = Toplevel(root)
-            for i in range(1,6):
-                text=open("save"+str(i)+".txt", "a")
-                text.close()
-                text=open("save"+str(i)+".txt", "r")
-                player_money=text.readline()[:-1]
-                computer_money=text.readline()[:-1]
-                ai=text.readline()[:-1]
-                name=text.readline()[:-1]
-                slot_label = Label(slot_window,text = "[ 슬롯"+str(i)+" ]")
-                slot_label.pack()
-                if player_money=="":
-                    slot_label['text'] = slot_label['text'] + " 비었음"
-                else:
-                    slot_label['text'] = slot_label['text'] + " 저장된 파일 있음"
-                    if name=="":
-                        slot_label['text'] = slot_label['text'] + "\n이름 : ???"
-                    else:
-                        slot_label['text'] = slot_label['text'] + "\n이름 : "+name
-                    if not (ai=="easy" or ai=="normal" or ai=="hard" or ai=="hell" or ai=="impossible"):
-                        slot_label['text'] = slot_label['text'] + "\n난이도 : ???"
-                    else:
-                        slot_label['text'] = slot_label['text'] + "\n난이도 : "+ai
-                text.close()
-            def finish():
-                slot_window.destroy()
-                slot_window.quit()
-            slot_button = Button(slot_window,text = "끄기",command = finish)
-            num=Reader.load_num(root)
-            
-            slot_button.pack()
-            slot_window.mainloop()
-            slot1_window = Toplevel(root)
-            text=open("save"+str(num)+".txt", "r")
-            player_money=text.readline()[:-1]
-            computer_money=text.readline()[:-1]
-            ai=text.readline()[:-1]
-            name=text.readline()[:-1]
-            text.close()
-            if not (player_money.isdigit() and computer_money.isdigit()) or \
-            not (ai=='easy' or ai=='normal' or ai=='hard' or ai=='hell' or ai=='impossible') or \
-            name=="":
-                label = Label(slot1_window,text = "세이브 파일이 없거나 손상되었습니다")
-                label.pack()
-            else:
-                label1 = Label(slot1_window,text = "성공적으로 불러왔습니다.")
-                label2 = Label(slot1_window,text = name+"님의 돈 :"+str(player_money))
-                label3 = Label(slot1_window,text = "컴퓨터의 돈 :"+str(computer_money))
-                label4 = Label(slot1_window,text = "난이도 :"+ai)
-                label1.pack()
-                label2.pack()
-                label3.pack()
-                label4.pack()
-                player_money=int(player_money)
-                computer_money=int(computer_money)
-                break
-            def finish():
-                slot1_window.destroy()
-                slot1_window.quit()
-            button = Button(slot1_window,text = "제출", command=finish)
-            button.pack()
-            slot1_window.mainloop()
-        else:        
-            player_money=Reader.init_money(root)
-            computer_money=player_money
-            ai=Reader.ai(root)
-            name=Reader.name(root)
-            break
+    player_money=10000000
+    computer_money=player_money
+    ai="impossible"
+    name="Player"
     first=2
     while True:
         nagari=0
@@ -1207,78 +1156,18 @@ def main(root):
             pasan_button.pack()
             pasan_window.mainloop()
             break
-
-        save_complete=False
-        if not Reader.again(root): # 다시 안할래요    
+        if not Reader.again(result_window): # 다시 안할래요    
             while True:
-                if Reader.save(root):
-                    save_window = Toplevel(root)
-                    print_label1 = []
-                    for i in range(1,6):
-                        text=open("save"+str(i)+".txt", "a+")
-                        text.close()
-                        text=open("save"+str(i)+".txt", "r")
-                        print_label1.append(Label(save_window,text= "["+str(i)+"]"))
-                        print_label1[i-1].pack()
-                        space_label = Label(save_window)
-                        if text.readline()[:-1]=="":
-                            space_label['text'] = "비었음"
-                        else:
-                            space_label['text'] = "저장됨"
-                        space_label.pack()
-                        text.close()
-                    number=Reader.save_num(root)
-                    def finish():
-                        save_window.destroy()
-                        save_window.quit()
-                    print_button = Button(save_window,text = "끄기",command = finish)
-                    print_button.pack()
-                    save_window.mainloop()
-                    save1_window = Toplevel(root)
-                    text=open("save"+str(number)+".txt", "r+")
-                    if text.readline()[:-1]!="":
-                        if Reader.re_check(root):
-                            text.close()
-                            text1=open("save"+str(number)+".txt", "w")
-                            text1.write(str(player_money)+"\n"+str(computer_money)+"\n"+ai+"\n"+name+"\n")
-                            text1.close()
-                            save_complete=True
-                            save_label=Label(save1_window,text = "저장되었습니다.")
-                            save_label.pack()
-                            def finish():
-                                save1_window.destroy()
-                                save1_window.quit()
-                            save_button = Button(save1_window,text = "끄기",command = finish)
-                            save_button.pack()
-                            break
-                    else:
-                        text.write(str(player_money)+"\n"+str(computer_money)+"\n"+ai+"\n"+name+"\n")
-                        text.close()
-                        save_complete=True
-                        save_label=Label(save1_window,text = "저장되었습니다.")
-                        save_label.pack()
-                        def finish():
-                            save1_window.destroy()
-                            save1_window.quit()
-                        save_button = Button(save1_window,text = "끄기",command = finish)
-                        save_button.pack()
-                        break
-                    save1_window.mainloop()
-                else: # 저장 안할래요
-                    save_complete=True
-                    goodbye_window = Toplevel(root)
-                    goodbye_label=Label(goodbye_window,text = "잘가요!")
-                    goodbye_label.pack()
-                    def finish():
-                        root.quit()
-                    goodbye_button = Button(goodbye_window,text = "끄기",command=finish)
-                    goodbye_button.pack()
-                    goodbye_window.mainloop()
-                    break
-        if save_complete:
-            root.destroy()
-            root.quit()
-            break
+                save_complete=True
+                goodbye_window = Toplevel(root)
+                goodbye_label=Label(goodbye_window,text = "잘가요!")
+                goodbye_label.pack()
+                def finish():
+                    root.quit()
+                goodbye_button = Button(goodbye_window,text = "끄기",command=finish)
+                goodbye_button.pack()
+                goodbye_window.mainloop()
+                break
 root = Tk()
 root.title("맞고")
 root.geometry("600x500")

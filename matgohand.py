@@ -1,10 +1,3 @@
-# [ 은수가 만들어줘야 할 것 ]
-# 매 턴마다 got의 속성변수 4개를 체크하여 점수를 계산한 후, 모 객체의 self.__score을 변환시켜 주어야 함.
-# << Example >>
-# user = got(Scott)
-# user.set_score(score_calculate(user).return())
-# -------------> user를 상속하는 score_calculate 클래스와 총 점수를 내주는 return() 메소드를 만들어줘
-# 획득한 카드의 참조는 @property들을 이용.
 from matgoview import *
 from matgocard import *
 class Player:
@@ -24,8 +17,8 @@ class Player:
         self.__score=score
     def set_was_score(self, score):
         self.__was_score=score
-    def put(self,root):
-        return self.__hand.pop(Reader.cardchoose(self.__hand,root)-1)
+    def put(self, root, field):
+        return self.__hand.pop(Reader.cardchoose(self.__hand,root, field, self.__hand)-1)
     def comput(self, num):
         if len(self.__hand)<=num: # 오류 방지용
             return self.__hand.pop(0)
