@@ -140,7 +140,7 @@ class Main:
 
 		if self.money<=0:
 			if self.money+total>0:
-				
+				self.announce+="파산 위기에 주식을 모두 매각했습니다.\n"
 				self.money+=total
 				for i in range(10):
 					if len(self.havestock[i])!=0:
