@@ -219,9 +219,9 @@ class Main:
 	# Mainscreen, Start the game by this method
 	def mainscreen(self):
 		"""
-		daylotto. 일일복권
+		daylotto 일일복권
 		"""
-		# daylotto. 일일복권
+		# daylotto 일일복권
 		def d_lotto():
 			window=Toplevel(self.root)
 			result = day_lotto_start(window)
