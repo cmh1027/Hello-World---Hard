@@ -284,7 +284,7 @@ class Main:
 			field.place(x=0, y=0)
 			font = tk.font.Font(root, size=13, weight='bold')
 			font2 = tk.font.Font(root, size=11)
-			msg=Label(immroot, text="즉석복권 100개를 사서 긁었습니다.")
+			msg=Label(immroot, text="즉석복권 100개를 사서 긁었습니다.") # 100
 			msg['font']=font
 			msg.place(x=25, y=3)
 			k=0
