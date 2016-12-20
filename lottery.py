@@ -34,7 +34,7 @@ class Main:
 		self.asset = Label(self.root,text = "현재 전재산 : "+str(self.money), relief="solid", padx=5, pady=5)
 		self.asset['font']=font2
 		self.asset.place(x=1, y=1)
-		self.info = Label(self.root,text = " <                 상황판                 >\n"+self.announce)
+		self.info = Label(self.root,text = " <                 상황판                 >\n짜릿한 주갤러의 인생을 즐겨보세요!"+self.announce)
 		self.info.place(x=410, y=0)
 		self.today = Label(self.root,text = "도박인생 "+str(self.date)+"일차", relief="solid", padx=5, pady=5)
 		self.today['font']=font2
