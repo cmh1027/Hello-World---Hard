@@ -1113,6 +1113,8 @@ class Main:
 					self.money += int(get)*self.stocklist[0][2]
 					self.stocklist[0][1] += int(get)
 					self.havestock[0][1] -= int(get)
+					if self.havestock[0][1]==0:
+						self.havestock[0]=[]
 					string = self.stocklist[0][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[0][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1149,6 +1151,8 @@ class Main:
 					self.money += int(get)*self.stocklist[1][2]
 					self.stocklist[1][1] += int(get)
 					self.havestock[1][1] -= int(get)
+					if self.havestock[1][1]==0:
+						self.havestock[1]=[]
 					string = self.stocklist[1][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[1][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1185,6 +1189,8 @@ class Main:
 					self.money += int(get)*self.stocklist[2][2]
 					self.stocklist[2][1] += int(get)
 					self.havestock[2][1] -= int(get)
+					if self.havestock[2][1]==0:
+						self.havestock[2]=[]
 					string = self.stocklist[2][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[2][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1221,6 +1227,8 @@ class Main:
 					self.money += int(get)*self.stocklist[3][2]
 					self.stocklist[3][1] += int(get)
 					self.havestock[3][1] -= int(get)
+					if self.havestock[3][1]==0:
+						self.havestock[3]=[]
 					string = self.stocklist[3][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[3][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1257,6 +1265,8 @@ class Main:
 					self.money += int(get)*self.stocklist[4][2]
 					self.stocklist[4][1] += int(get)
 					self.havestock[4][1] -= int(get)
+					if self.havestock[4][1]==0:
+						self.havestock[4]=[]
 					string = self.stocklist[4][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[4][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1293,6 +1303,8 @@ class Main:
 					self.money += int(get)*self.stocklist[5][2]
 					self.stocklist[5][1] += int(get)
 					self.havestock[5][1] -= int(get)
+					if self.havestock[5][1]==0:
+						self.havestock[5]=[]
 					string = self.stocklist[5][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[5][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1329,6 +1341,8 @@ class Main:
 					self.money += int(get)*self.stocklist[6][2]
 					self.stocklist[6][1] += int(get)
 					self.havestock[6][1] -= int(get)
+					if self.havestock[6][1]==0:
+						self.havestock[6]=[]
 					string = self.stocklist[6][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[6][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1365,6 +1379,8 @@ class Main:
 					self.money += int(get)*self.stocklist[7][2]
 					self.stocklist[7][1] += int(get)
 					self.havestock[7][1] -= int(get)
+					if self.havestock[7][1]==0:
+						self.havestock[7]=[]
 					string = self.stocklist[7][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[7][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1401,6 +1417,8 @@ class Main:
 					self.money += int(get)*self.stocklist[8][2]
 					self.stocklist[8][1] += int(get)
 					self.havestock[8][1] -= int(get)
+					if self.havestock[8][1]==0:
+						self.havestock[8]=[]
 					string = self.stocklist[8][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[8][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
@@ -1437,6 +1455,8 @@ class Main:
 					self.money += int(get)*self.stocklist[9][2]
 					self.stocklist[9][1] += int(get)
 					self.havestock[9][1] -= int(get)
+					if self.havestock[9][1]==0:
+						self.havestock[9]=[]
 					string = self.stocklist[9][0]+" 주식을 "+get+"주 판매했습니다.\n"
 					string += str(int(get)*self.stocklist[9][2])+"원을 얻었습니다.\n"
 					check = self.addannounce(string, stockroot)
