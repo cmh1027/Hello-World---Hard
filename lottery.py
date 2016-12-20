@@ -132,6 +132,7 @@ class Main:
 						self.stocklist[i].append(name)
 						self.stocklist[i].append(100)
 						self.stocklist[i].append(100000-100*random.randrange(-150, 151))
+						break
 		self.update()
 		total=0
 		for i in range(10):
