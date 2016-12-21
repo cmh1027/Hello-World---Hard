@@ -1433,7 +1433,7 @@ class Main:
 				get=be10.get()
 				if get.isdigit() and self.stocklist[9][1]>=int(get) and int(get)*self.stocklist[9][2] < self.money:
 					self.date+=1
-					elf.money -= int(get)*self.stocklist[9][2]
+					self.money -= int(get)*self.stocklist[9][2]
 					if len(self.havestock[9])==0:
 						self.havestock[9].append(self.stocklist[9][0])
 						self.havestock[9].append(int(get))
