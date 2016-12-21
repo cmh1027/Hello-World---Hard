@@ -56,7 +56,7 @@ class Main:
 						break
 				if check:
 					self.stocklist[k].append(name)
-					self.stocklist[k].append(100)
+					self.stocklist[k].append(1000)
 					self.stocklist[k].append(100000-100*random.randrange(-150, 151))
 					break
 	"""
@@ -130,7 +130,7 @@ class Main:
 							break
 					if check:
 						self.stocklist[i].append(name)
-						self.stocklist[i].append(100)
+						self.stocklist[i].append(1000)
 						self.stocklist[i].append(100000-100*random.randrange(-150, 151))
 						break
 		self.update()
