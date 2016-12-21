@@ -1977,7 +1977,7 @@ class Main:
 				input1=score1.get()
 				input2=score2.get()
 				self.date+=1
-				if input1.isdigit() and 0 <= int(input1) and int(input1) <= 3 and input2.isdigit() and 0 <= int(input2) and int(input2):
+				if input1.isdigit() and 0 <= int(input1)<= 3 and input2.isdigit() and 0 <= int(input2) <= 3:
 					if team1_score==int(input1) and team2_score==int(input2):
 						addmoney=750000*random.randrange(3, 15)
 						self.money+=addmoney
